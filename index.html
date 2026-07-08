@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>Chong Hua People 🎓</title>
+<title>StrangerLines</title>
 <meta name="theme-color" content="#1e3a5f"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@700;800&family=Playfair+Display:ital,wght@0,600;1,600&family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet"/>
@@ -427,6 +427,73 @@ img{max-width:100%;display:block}
 .conf-footer{display:flex;align-items:center;justify-content:space-between;margin-top:9px}
 .conf-fts{font-size:10.5px;color:rgba(255,255,255,.36)}
 .conf-rxrow{display:flex;gap:3px}
+/* CONFESSION v2 — STATS / TABS / SEARCH / THEME */
+.conf-stats{display:flex;gap:8px}
+.conf-stat{flex:1;background:rgba(255,255,255,.04);border:1px solid var(--bdr2);border-radius:11px;padding:10px 12px;display:flex;flex-direction:column;gap:2px}
+.conf-stat b{font-size:17px;font-weight:800;color:#f9a8d4;font-family:'Space Grotesk',sans-serif}
+.conf-stat span{font-size:9.5px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.5px;font-weight:700}
+.conf-toolbar{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.conf-tabs{display:flex;gap:4px;background:rgba(255,255,255,.04);border:1px solid var(--bdr2);border-radius:var(--rf);padding:3px}
+.conf-tab{border:none;background:none;color:rgba(255,255,255,.5);font-size:11.5px;font-weight:700;padding:6px 12px;border-radius:var(--rf);cursor:pointer;transition:all .13s;white-space:nowrap}
+.conf-tab:hover{color:#fff}
+.conf-tab.on{background:linear-gradient(135deg,var(--pk),var(--pk2));color:#fff;box-shadow:0 3px 10px rgba(219,39,119,.35)}
+.conf-searchwrap{position:relative;flex:1;min-width:140px}
+.conf-search{width:100%;background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.1);border-radius:var(--rf);color:#fff;font-size:12.5px;padding:7px 12px 7px 28px;outline:none;transition:all .13s}
+.conf-search:focus{background:rgba(255,255,255,.09);border-color:rgba(255,255,255,.21)}
+.conf-search::placeholder{color:rgba(255,255,255,.24)}
+.conf-searchico{position:absolute;left:9px;top:50%;transform:translateY(-50%);font-size:11px;opacity:.4;pointer-events:none}
+.conf-surprise{background:linear-gradient(135deg,var(--am),var(--am2));border:none;color:#fff;font-size:11.5px;font-weight:700;padding:8px 13px;border-radius:var(--rf);cursor:pointer;display:flex;align-items:center;gap:5px;transition:transform .13s;white-space:nowrap}
+.conf-surprise:hover{transform:translateY(-1px) scale(1.03)}
+.conf-surprise:active{transform:scale(.96)}
+.conf-theme-row{display:flex;gap:8px;margin-bottom:9px;flex-wrap:wrap}
+.conf-theme-grp{flex:1;min-width:130px}
+.conf-theme-grp label{display:block;font-size:10px;font-weight:700;color:rgba(255,255,255,.38);letter-spacing:.6px;text-transform:uppercase;margin-bottom:5px}
+.theme-swatches,.seal-swatches{display:flex;gap:6px}
+.theme-sw{width:30px;height:30px;border-radius:7px;cursor:pointer;border:2px solid transparent;transition:all .13s;position:relative;flex-shrink:0}
+.theme-sw.on{border-color:#fff;transform:scale(1.1)}
+.theme-sw.on::after{content:'✓';position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:13px;color:#3d2e22;font-weight:800}
+.seal-sw{width:26px;height:26px;border-radius:50%;cursor:pointer;border:2px solid transparent;transition:all .13s;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0}
+.seal-sw.on{border-color:#fff;transform:scale(1.15)}
+.conf-empty-filter{padding:26px 10px;text-align:center;color:rgba(255,255,255,.35);font-size:12.5px}
+.conf-card{position:relative}
+.conf-mine-badge{background:rgba(37,99,235,.2);color:#93c5fd;font-size:8.5px;font-weight:800;padding:2px 7px;border-radius:var(--rf);border:1px solid rgba(37,99,235,.3);text-transform:uppercase;letter-spacing:.4px}
+.conf-tome-badge{background:rgba(22,163,74,.2);color:#86efac;font-size:8.5px;font-weight:800;padding:2px 7px;border-radius:var(--rf);border:1px solid rgba(22,163,74,.3);text-transform:uppercase;letter-spacing:.4px;margin-left:5px}
+.conf-reveal-tag{background:rgba(217,119,6,.22);color:#fcd34d;font-size:8.5px;font-weight:800;padding:2px 7px;border-radius:var(--rf);border:1px solid rgba(217,119,6,.3);margin-left:5px}
+.conf-del-mini{position:absolute;top:10px;right:10px;background:rgba(255,255,255,.06);border:1px solid var(--bdr2);color:rgba(255,255,255,.4);font-size:11px;width:22px;height:22px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .13s;z-index:2}
+.conf-del-mini:hover{background:rgba(220,38,38,.25);color:#fca5a5;border-color:rgba(220,38,38,.4)}
+/* LETTER ACTION BAR + REPLY THREAD */
+.letter-actbar{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin-top:18px;padding-top:14px;border-top:1px dashed rgba(61,46,34,.22)}
+.letter-abtn{background:rgba(61,46,34,.08);border:1px solid rgba(61,46,34,.16);color:#5c4433;font-size:11px;font-weight:700;padding:6px 11px;border-radius:var(--rf);cursor:pointer;transition:all .13s;font-family:'Inter',sans-serif;display:flex;align-items:center;gap:4px}
+.letter-abtn:hover{background:rgba(61,46,34,.15);transform:translateY(-1px)}
+.letter-abtn.danger{color:#a13030;border-color:rgba(161,48,48,.25)}
+.letter-abtn.danger:hover{background:rgba(161,48,48,.14)}
+.letter-abtn.pink{background:linear-gradient(135deg,var(--pk),var(--pk2));color:#fff;border:none}
+.letter-reply-box{margin-top:12px;background:rgba(61,46,34,.06);border:1px solid rgba(61,46,34,.14);border-radius:9px;padding:10px}
+.letter-reply-ta{width:100%;background:rgba(255,255,255,.5);border:1px solid rgba(61,46,34,.2);border-radius:7px;color:#3d2e22;font-family:'Inter',sans-serif;font-size:12.5px;padding:7px 9px;outline:none;resize:none;min-height:56px;margin-bottom:7px}
+.letter-reply-existing{margin-top:14px;background:rgba(219,39,119,.06);border:1px dashed rgba(219,39,119,.28);border-radius:9px;padding:11px 12px}
+.letter-reply-existing .lre-lbl{font-size:9.5px;font-weight:800;color:#c23a63;text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px}
+.letter-reply-existing .lre-txt{font-family:'Playfair Display',serif;font-style:italic;font-size:13.5px;color:#3d2e22;line-height:1.6;white-space:pre-wrap}
+.letter-reveal-box{margin-top:12px;text-align:center;font-size:11.5px;color:#8a6a52;font-style:italic}
+/* PAPER THEMES */
+.letter-paper.t1{background:linear-gradient(160deg,#eef6f0,#e2eee2)}
+.letter-paper.t1 .letter-hd{color:#2f6b4f}
+.letter-paper.t1 .letter-body,.letter-paper.t1 .letter-to{color:#33422f}
+.letter-paper.t2{background:linear-gradient(160deg,#eef2fb,#e2e9f7)}
+.letter-paper.t2 .letter-hd{color:#2c4a8a}
+.letter-paper.t2 .letter-body,.letter-paper.t2 .letter-to{color:#2e3550}
+.letter-paper.t3{background:linear-gradient(160deg,#fbeef2,#f7e2ec)}
+.letter-paper.t3 .letter-hd{color:#a8365a}
+.letter-paper.t3 .letter-body,.letter-paper.t3 .letter-to{color:#4a2e3d}
+.letter-paper.t4{background:linear-gradient(160deg,#2b2320,#1c1613);box-shadow:0 30px 70px rgba(0,0,0,.7)}
+.letter-paper.t4 .letter-hd{color:#e8b4c4}
+.letter-paper.t4 .letter-body,.letter-paper.t4 .letter-to{color:#e6dcd2}
+.letter-paper.t4 .letter-close{color:#c9b8a8}
+.letter-paper.t4 .letter-actbar{border-top-color:rgba(255,255,255,.12)}
+.letter-paper.t4 .letter-abtn{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.14);color:#e6dcd2}
+.seal-blue{background:radial-gradient(circle at 35% 30%,#6d9ee8,#2c4a8a)!important}
+.seal-green{background:radial-gradient(circle at 35% 30%,#7fce9a,#2f6b4f)!important}
+.seal-gold{background:radial-gradient(circle at 35% 30%,#f0c96b,#b8860b)!important}
+.seal-purple{background:radial-gradient(circle at 35% 30%,#b48ce8,#6b3fa0)!important}
 /* NOTES */
 .notes-wrap{padding:14px;display:flex;flex-direction:column;gap:11px}
 .notes-hd{display:flex;align-items:center;justify-content:space-between}
@@ -744,18 +811,35 @@ img{max-width:100%;display:block}
 <!-- CONFESSION PANEL -->
 <div class="panel" id="panel-confession">
 <div class="sa"><div class="conf-wrap">
+<div class="conf-stats">
+<div class="conf-stat"><b id="conf-stat-total">0</b><span>Letters Sent</span></div>
+<div class="conf-stat"><b id="conf-stat-mine">0</b><span>From You</span></div>
+<div class="conf-stat"><b id="conf-stat-hearts">0</b><span>Reactions For You</span></div>
+</div>
 <div class="conf-compose">
 <h3>💌 Write a Confession</h3>
 <div class="conf-field"><label>From (or "Anonymous")</label><input class="conf-input" id="conf-from" placeholder="Anonymous"/></div>
 <div class="conf-field tag-wrap"><label>Tag Someone 💕</label><input class="conf-input" id="conf-to" placeholder="Type a name to tag a classmate…" autocomplete="off" oninput="confTagSearch(this.value)" onfocus="confTagSearch(this.value)"/><div class="tag-suggest" id="conf-tag-suggest"></div><div id="conf-tag-chip"></div></div>
 <div class="conf-field"><label>Your Message</label><textarea class="conf-ta" id="conf-msg" placeholder="Tell them what's on your heart… It will be auto-formatted into a letter." rows="4" oninput="prevConf()"></textarea></div>
+<div class="conf-theme-row">
+<div class="conf-theme-grp"><label>Stationery</label><div class="theme-swatches" id="conf-theme-sw"></div></div>
+<div class="conf-theme-grp"><label>Wax Seal</label><div class="seal-swatches" id="conf-seal-sw"></div></div>
+</div>
 <div class="conf-preview" id="conf-preview"><div class="conf-letter" id="conf-letter"></div></div>
 <div class="conf-acts">
 <button class="btn btn-ghost btn-sm" type="button" onclick="prevConf()">Preview</button>
 <button class="btn btn-pink btn-sm" type="button" onclick="submitConf()"><div class="bspin"></div><span class="blbl">Send 💌</span></button>
 </div>
 </div>
-<div class="sec-lbl" style="margin-top:4px">Recent Confessions</div>
+<div class="conf-toolbar">
+<div class="conf-tabs">
+<button class="conf-tab on" type="button" id="conf-tab-all" onclick="setConfTab('all')">All</button>
+<button class="conf-tab" type="button" id="conf-tab-sent" onclick="setConfTab('sent')">Sent by Me</button>
+<button class="conf-tab" type="button" id="conf-tab-recv" onclick="setConfTab('recv')">To Me</button>
+</div>
+<div class="conf-searchwrap"><span class="conf-searchico">🔎</span><input class="conf-search" id="conf-search" placeholder="Search by tagged name…" oninput="renderConfs()"/></div>
+<button class="conf-surprise" type="button" onclick="surpriseConf()">🎲 Surprise Me</button>
+</div>
 <div class="conf-list" id="conf-list"><div class="es"><div class="es-ico">💌</div><div class="es-ttl">No confessions yet</div></div></div>
 </div></div>
 </div>
@@ -1355,13 +1439,45 @@ window.submitStory=async()=>{
   setL('story-btn',false);
 };
 
-/* CONFESSION */
+/* ============================================================
+   CONFESSIONS v2 — realtime, structured data model (no more
+   fragile string-parsing), stationery themes, tabs/search,
+   replies, reveal requests, download-as-image, stats.
+   ============================================================ */
+const CONF_THEMES=[{id:0,cls:'',name:'Classic Cream',bg:'linear-gradient(160deg,#fdf6ec,#f7e9d7)'},{id:1,cls:'t1',name:'Sage',bg:'linear-gradient(160deg,#eef6f0,#e2eee2)'},{id:2,cls:'t2',name:'Sky',bg:'linear-gradient(160deg,#eef2fb,#e2e9f7)'},{id:3,cls:'t3',name:'Blush',bg:'linear-gradient(160deg,#fbeef2,#f7e2ec)'},{id:4,cls:'t4',name:'Midnight',bg:'linear-gradient(160deg,#2b2320,#1c1613)'}];
+const CONF_SEALS=[{id:0,cls:'',emoji:'💗'},{id:1,cls:'seal-blue',emoji:'💙'},{id:2,cls:'seal-green',emoji:'💚'},{id:3,cls:'seal-gold',emoji:'⭐'},{id:4,cls:'seal-purple',emoji:'💜'}];
+S.confTheme=0;S.confSeal=0;S.confTab='all';S.confAll=[];S.confLetters={};
+
+function buildThemeSwatches(){
+  const tw=document.getElementById('conf-theme-sw'),sw=document.getElementById('conf-seal-sw');
+  if(tw)tw.innerHTML=CONF_THEMES.map(t=>`<div class="theme-sw${S.confTheme===t.id?' on':''}" style="background:${t.bg}" title="${esc(t.name)}" onclick="pickConfTheme(${t.id})"></div>`).join('');
+  if(sw)sw.innerHTML=CONF_SEALS.map(s=>`<div class="seal-sw${S.confSeal===s.id?' on':''}" style="background:radial-gradient(circle at 35% 30%,#e8829c,#c23a63)" title="Wax seal" onclick="pickConfSeal(${s.id})">${s.emoji}</div>`).join('');
+}
+window.pickConfTheme=(id)=>{S.confTheme=id;buildThemeSwatches();prevConf();};
+window.pickConfSeal=(id)=>{S.confSeal=id;buildThemeSwatches();};
+
 function subConf(){
   if(!S.user)return;
-  S.unsubConf=onValue(query(ref(db,'confessions'),orderByChild('ts'),limitToLast(30)),snap=>{
-    const confs=[];snap.forEach(c=>confs.unshift({id:c.key,...c.val()}));renderConfs(confs);
-  });
+  S.unsubConf=onValue(query(ref(db,'confessions'),orderByChild('ts'),limitToLast(60)),snap=>{
+    const confs=[];snap.forEach(c=>confs.unshift({id:c.key,...c.val()}));
+    S.confAll=confs;renderConfs();updateConfStats();
+    buildThemeSwatches();
+  },e=>console.error('confessions sub failed',e));
 }
+function updateConfStats(){
+  const tEl=document.getElementById('conf-stat-total'),mEl=document.getElementById('conf-stat-mine'),hEl=document.getElementById('conf-stat-hearts');
+  if(!tEl)return;
+  const mine=S.confAll.filter(c=>S.user&&c.uid===S.user.uid).length;
+  let hearts=0;
+  S.confAll.forEach(c=>{if(S.user&&c.toUid===S.user.uid){const rx=c.rx||{};Object.values(rx).forEach(uids=>{if(Array.isArray(uids))hearts+=uids.length;});}});
+  tEl.textContent=S.confAll.length;mEl.textContent=mine;hEl.textContent=hearts;
+}
+window.setConfTab=(tab)=>{
+  S.confTab=tab;
+  document.querySelectorAll('.conf-tab').forEach(b=>b.classList.remove('on'));
+  document.getElementById(`conf-tab-${tab==='all'?'all':tab==='sent'?'sent':'recv'}`)?.classList.add('on');
+  renderConfs();
+};
 /* TAG SOMEONE (confession) */
 window.confTagSearch=async(q)=>{
   const box=document.getElementById('conf-tag-suggest');if(!box)return;
@@ -1396,14 +1512,18 @@ document.addEventListener('click',e=>{
   const wrap=document.getElementById('conf-tag-suggest');
   if(wrap&&!e.target.closest('.tag-wrap'))wrap.classList.remove('on');
 });
+/* Builds the plain-text letter body from structured fields — used for BOTH
+   the compose preview and the final popup, so there is exactly one source
+   of truth and nothing can ever come out blank or mis-parsed. */
+function fmtLetterDate(ts){const d=ts?new Date(ts):new Date();return d.toLocaleDateString([],{weekday:'long',year:'numeric',month:'long',day:'numeric'});}
+function letterBodyText(to,msg,from){return `Dear ${to},\n\n${msg}\n\nWith all my heart,\n${from}`;}
 window.prevConf=()=>{
   const from=(document.getElementById('conf-from').value.trim()||'Anonymous');
-  const to=document.getElementById('conf-to').value.trim()||'(Someone Special)';
+  const to=document.getElementById('conf-to').value.trim()||'Someone Special';
   const msg=document.getElementById('conf-msg').value.trim();
   const prev=document.getElementById('conf-preview'),letter=document.getElementById('conf-letter');
   if(!msg){prev.classList.remove('show');return;}
-  const now=new Date();const dateStr=now.toLocaleDateString([],{weekday:'long',year:'numeric',month:'long',day:'numeric'});
-  letter.textContent=`${dateStr}\n\nDear ${to},\n\n${msg}\n\nWith all my heart,\n${from}`;
+  letter.textContent=`${fmtLetterDate()}\n\n${letterBodyText(to,msg,from)}`;
   prev.classList.add('show');
 };
 /* Look up a user's uid by exact (case-insensitive) nickname match.
@@ -1418,6 +1538,7 @@ async function findUidByNick(nick){
   }catch(e){console.error(e);return null;}
 }
 window.submitConf=async()=>{
+  if(!S.user){toast('Please sign in again.','r');return;}
   const from=(document.getElementById('conf-from').value.trim()||'Anonymous');
   const to=document.getElementById('conf-to').value.trim()||'Someone Special';
   const msg=document.getElementById('conf-msg').value.trim();
@@ -1427,44 +1548,144 @@ window.submitConf=async()=>{
     toUid=await findUidByNick(document.getElementById('conf-to').value.trim());
     if(!toUid){toast(`Couldn't find "${to}" — pick their name from the suggestions so it reaches them 💌`,'a');return;}
   }
-  const now=new Date();const dateStr=now.toLocaleDateString([],{weekday:'long',year:'numeric',month:'long',day:'numeric'});
-  const letter=`${dateStr}\n\nDear ${to},\n\n${msg}\n\nWith all my heart,\n${from}`;
   try{
-    await push(ref(db,'confessions'),{letter,from,to,toUid,uid:S.user.uid,nick:S.nick,ts:serverTimestamp(),rx:null});
+    const newRef=push(ref(db,'confessions'));
+    await set(newRef,{from,to,toUid:toUid||null,message:msg,theme:S.confTheme||0,seal:S.confSeal||0,uid:S.user.uid,nick:S.nick,ts:serverTimestamp(),rx:null,reply:null,revealReq:false,revealed:false,revealedNick:null});
     if(toUid){
-      await push(ref(db,`notifications/${toUid}`),{type:'confession',icon:'💌',text:`You received a new anonymous confession letter! Someone out there is thinking of you 💕`,ts:serverTimestamp(),read:false});
+      await push(ref(db,`notifications/${toUid}`),{type:'confession',icon:'💌',text:`You received a new anonymous confession letter! Someone out there is thinking of you 💕`,ts:serverTimestamp(),read:false,confId:newRef.key});
     }
     document.getElementById('conf-from').value='';document.getElementById('conf-to').value='';
     document.getElementById('conf-msg').value='';document.getElementById('conf-preview').classList.remove('show');
     document.getElementById('conf-tag-chip').innerHTML='';S.confToUid=null;S.confToNick=null;
     toast('Confession sent! 💌','g');
-  }catch(e){console.error(e);toast('Failed to send','r');}
+  }catch(e){console.error(e);toast('Failed to send — check your connection','r');}
 };
-S.confLetters={};
-function renderConfs(confs){
+function confMatchesFilter(c){
+  if(S.confTab==='sent'&&!(S.user&&c.uid===S.user.uid))return false;
+  if(S.confTab==='recv'&&!(S.user&&c.toUid===S.user.uid))return false;
+  const q=(document.getElementById('conf-search')?.value||'').trim().toLowerCase();
+  if(q&&!((c.to||'').toLowerCase().includes(q)||(c.from||'').toLowerCase().includes(q)))return false;
+  return true;
+}
+function renderConfs(){
   const el=document.getElementById('conf-list');if(!el)return;
-  if(!confs.length){el.innerHTML='<div class="es"><div class="es-ico">💌</div><div class="es-ttl">No confessions yet</div></div>';return;}
+  const confs=S.confAll.filter(confMatchesFilter);
+  if(!S.confAll.length){el.innerHTML='<div class="es"><div class="es-ico">💌</div><div class="es-ttl">No confessions yet</div></div>';return;}
+  if(!confs.length){el.innerHTML='<div class="conf-empty-filter">No letters match here yet 🤍</div>';return;}
   el.innerHTML='';
   confs.forEach(c=>{
     S.confLetters[c.id]=c;
     const card=document.createElement('div');card.className='conf-card';
     const rx=c.rx||{};
     const rxH=PRXE.map(e=>{const uids=rx[e]||[];const mine=S.user&&uids.includes(S.user.uid);const cnt=uids.length;return`<button class="rc${mine?' mine':''}" style="font-size:12.5px" type="button" onclick="event.stopPropagation();doRx('${c.id}','${e}','conf:${c.id}')">${e}${cnt>0?`<span class="rcn">${cnt}</span>`:''}</button>`;}).join('');
-    card.innerHTML=`<div class="conf-card-hd"><span class="conf-badge">💌 Confession</span><span class="conf-ts">${c.ts?fd(new Date(c.ts)):''}</span></div><div class="conf-card-txt">${esc((c.letter||'').split('\n\n').slice(1).join(' ').slice(0,110))}…</div><div class="conf-footer"><span class="conf-fts">To: ${esc(c.to||'?')}</span><div class="conf-rxrow">${rxH}</div></div>`;
+    const isMine=S.user&&c.uid===S.user.uid,isToMe=S.user&&c.toUid===S.user.uid;
+    const badges=(isMine?'<span class="conf-mine-badge">You sent</span>':'')+(isToMe?'<span class="conf-tome-badge">To you</span>':'')+(c.revealed?'<span class="conf-reveal-tag">Revealed</span>':(isToMe&&c.revealReq?'<span class="conf-reveal-tag">Reveal asked</span>':''));
+    const snippet=(c.message||'').slice(0,120);
+    card.innerHTML=`${isMine?'<button class="conf-del-mini" type="button" onclick="event.stopPropagation();delConf(\''+c.id+'\')" title="Delete">✕</button>':''}<div class="conf-card-hd"><span class="conf-badge">💌 Confession</span><span class="conf-ts">${c.ts?fd(new Date(c.ts)):''}</span></div><div class="conf-card-txt">${esc(snippet)}${(c.message||'').length>120?'…':''}</div><div class="conf-footer"><span class="conf-fts">To: ${esc(c.to||'?')} ${badges}</span><div class="conf-rxrow">${rxH}</div></div>`;
     card.onclick=()=>openLetter(c.id);
     el.appendChild(card);
   });
 }
+window.surpriseConf=()=>{
+  if(!S.confAll.length){toast('No confessions yet to surprise you with 💌','a');return;}
+  const pick=S.confAll[Math.floor(Math.random()*S.confAll.length)];
+  openLetter(pick.id);
+};
+window.delConf=async(id)=>{
+  const c=S.confLetters[id];if(!c||!S.user||c.uid!==S.user.uid)return;
+  if(!confirm('Delete this confession letter? This cannot be undone.'))return;
+  try{await remove(ref(db,`confessions/${id}`));toast('Letter deleted','a');closeLetter();}catch(e){console.error(e);toast('Failed to delete','r');}
+};
 window.openLetter=(id)=>{
   const c=S.confLetters[id];if(!c)return;
   const env=document.getElementById('letter-envelope');
-  const lines=(c.letter||'').split('\n\n');
-  const body=lines.slice(2).join('\n\n')||c.letter||'';
-  env.innerHTML=`<div class="letter-paper"><div class="letter-seal">💗</div><button class="letter-close" onclick="closeLetter()">✕</button><div class="letter-hd">A Letter For You</div><div class="letter-to">To: ${esc(c.to||'Someone Special')} · From: ${esc(c.from||'Anonymous')}</div><div class="letter-body">${esc(body)}</div><div class="letter-hearts">💕 ✨ 💌 ✨ 💕</div></div>`;
+  const theme=CONF_THEMES[c.theme||0]||CONF_THEMES[0];
+  const seal=CONF_SEALS[c.seal||0]||CONF_SEALS[0];
+  const body=c.message?letterBodyText(c.to||'Someone Special',c.message,c.from||'Anonymous'):(c.letter||'').split('\n\n').slice(2).join('\n\n')||'(this letter has no message)';
+  const isMine=S.user&&c.uid===S.user.uid,isToMe=S.user&&c.toUid===S.user.uid;
+  let acts=`<button class="letter-abtn" type="button" onclick="downloadLetterImg('${id}')">⬇️ Save Image</button><button class="letter-abtn" type="button" onclick="copyLetterText('${id}')">📋 Copy Text</button>`;
+  if(isToMe&&!c.reply)acts+=`<button class="letter-abtn pink" type="button" onclick="toggleReplyBox('${id}')">💬 Reply</button>`;
+  if(isToMe&&!c.revealed&&!c.revealReq)acts+=`<button class="letter-abtn" type="button" onclick="askReveal('${id}')">💫 Ask to Reveal</button>`;
+  if(isMine&&c.revealReq&&!c.revealed)acts+=`<button class="letter-abtn pink" type="button" onclick="revealSelf('${id}')">🎭 Reveal Yourself</button>`;
+  if(isMine)acts+=`<button class="letter-abtn danger" type="button" onclick="delConf('${id}')">🗑️ Delete</button>`;
+  let replyHtml='';
+  if(c.reply&&(isMine||isToMe))replyHtml=`<div class="letter-reply-existing"><div class="lre-lbl">💌 Reply</div><div class="lre-txt">${esc(c.reply.text||'')}</div></div>`;
+  let revealHtml='';
+  if(c.revealed&&c.revealedNick)revealHtml=`<div class="letter-reveal-box">🎭 ${esc(c.revealedNick)} chose to reveal themselves as the sender!</div>`;
+  env.innerHTML=`<div class="letter-paper ${theme.cls}"><div class="letter-seal ${seal.cls}">${seal.emoji}</div><button class="letter-close" onclick="closeLetter()">✕</button><div class="letter-hd">A Letter For You</div><div class="letter-to">To: ${esc(c.to||'Someone Special')} · From: ${esc(c.from||'Anonymous')}</div><div class="letter-body">${esc(body)}</div><div class="letter-hearts">💕 ✨ 💌 ✨ 💕</div>${revealHtml}${replyHtml}<div class="letter-actbar">${acts}</div><div id="letter-reply-slot-${id}"></div></div>`;
   document.getElementById('letter-modal').classList.add('on');
   playChime();
 };
 window.closeLetter=()=>{document.getElementById('letter-modal').classList.remove('on');};
+window.toggleReplyBox=(id)=>{
+  const slot=document.getElementById(`letter-reply-slot-${id}`);if(!slot)return;
+  if(slot.innerHTML){slot.innerHTML='';return;}
+  slot.innerHTML=`<div class="letter-reply-box"><textarea class="letter-reply-ta" id="reply-ta-${id}" placeholder="Write a short reply back…" maxlength="500"></textarea><button class="letter-abtn pink" type="button" onclick="sendReply('${id}')">Send Reply 💌</button></div>`;
+};
+window.sendReply=async(id)=>{
+  const ta=document.getElementById(`reply-ta-${id}`);const text=ta?.value.trim();if(!text)return;
+  const c=S.confLetters[id];if(!c)return;
+  try{
+    await update(ref(db,`confessions/${id}`),{reply:{text,ts:Date.now()}});
+    if(c.uid){await push(ref(db,`notifications/${c.uid}`),{type:'confession_reply',icon:'💬',text:`Someone replied to your confession letter!`,ts:serverTimestamp(),read:false,confId:id});}
+    toast('Reply sent 💌','g');openLetter(id);
+  }catch(e){console.error(e);toast('Failed to send reply','r');}
+};
+window.askReveal=async(id)=>{
+  const c=S.confLetters[id];if(!c)return;
+  try{
+    await update(ref(db,`confessions/${id}`),{revealReq:true});
+    if(c.uid){await push(ref(db,`notifications/${c.uid}`),{type:'confession_reveal_request',icon:'💫',text:`Someone is curious who sent them a confession letter — they'd love to know it's you!`,ts:serverTimestamp(),read:false,confId:id});}
+    toast('Request sent! They may choose to reveal themselves 💫','g');openLetter(id);
+  }catch(e){console.error(e);toast('Failed to send request','r');}
+};
+window.revealSelf=async(id)=>{
+  const c=S.confLetters[id];if(!c||!S.user)return;
+  if(!confirm(`Reveal yourself as ${S.nick} to the recipient of this letter?`))return;
+  try{
+    await update(ref(db,`confessions/${id}`),{revealed:true,revealedNick:S.nick});
+    if(c.toUid){await push(ref(db,`notifications/${c.toUid}`),{type:'confession_revealed',icon:'🎭',text:`${S.nick} revealed themselves as the sender of your confession letter!`,ts:serverTimestamp(),read:false,confId:id});}
+    toast('You revealed yourself 🎭','g');openLetter(id);
+  }catch(e){console.error(e);toast('Failed to reveal','r');}
+};
+window.copyLetterText=(id)=>{
+  const c=S.confLetters[id];if(!c)return;
+  const txt=`${fmtLetterDate(c.ts)}\n\n${letterBodyText(c.to||'Someone Special',c.message||'',c.from||'Anonymous')}`;
+  navigator.clipboard?.writeText(txt).then(()=>toast('Letter copied to clipboard 📋','g')).catch(()=>toast('Could not copy','r'));
+};
+/* Renders the letter onto a canvas and triggers a PNG download — a nice
+   keepsake feature, drawn manually so no external image libraries needed. */
+window.downloadLetterImg=(id)=>{
+  const c=S.confLetters[id];if(!c)return;
+  const theme=CONF_THEMES[c.theme||0]||CONF_THEMES[0];
+  const dark=theme.id===4;
+  const W=640,pad=52;const cvs=document.createElement('canvas');cvs.width=W;
+  const ctx=cvs.getContext('2d');
+  ctx.font='italic 20px Georgia, serif';
+  const msg=c.message||'';
+  const words=msg.split(/\s+/);const lines=[];let line='';
+  words.forEach(w=>{const test=line?line+' '+w:w;if(ctx.measureText(test).width>W-pad*2){lines.push(line);line=w;}else line=test;});
+  if(line)lines.push(line);
+  const lineH=32;const H=pad*2+150+lines.length*lineH+70;
+  cvs.height=H;
+  const g=ctx.createLinearGradient(0,0,W,H);
+  if(dark){g.addColorStop(0,'#2b2320');g.addColorStop(1,'#1c1613');}else{g.addColorStop(0,'#fdf6ec');g.addColorStop(1,'#f2e2ce');}
+  ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+  ctx.textAlign='center';
+  ctx.fillStyle=dark?'#e8b4c4':'#a8365a';ctx.font='30px Georgia, serif';
+  ctx.fillText('A Letter For You',W/2,pad+18);
+  ctx.fillStyle=dark?'#c9b8a8':'#8a6a52';ctx.font='14px Georgia, serif';
+  ctx.fillText(`To: ${c.to||'Someone Special'}  ·  From: ${c.from||'Anonymous'}`,W/2,pad+46);
+  ctx.textAlign='left';ctx.font='italic 18px Georgia, serif';ctx.fillStyle=dark?'#e6dcd2':'#3d2e22';
+  let y=pad+95;
+  ctx.fillText(`Dear ${c.to||'Someone Special'},`,pad,y);y+=lineH;
+  lines.forEach(l=>{ctx.fillText(l,pad,y);y+=lineH;});
+  y+=6;ctx.fillText('With all my heart,',pad,y);y+=lineH;
+  ctx.fillText(c.from||'Anonymous',pad,y);
+  ctx.textAlign='center';ctx.font='16px Arial';ctx.fillText('💕 ✨ 💌 ✨ 💕',W/2,H-30);
+  const a=document.createElement('a');a.download='confession-letter.png';a.href=cvs.toDataURL('image/png');a.click();
+  toast('Letter image downloaded ⬇️','g');
+};
 function playChime(){
   try{
     const ctx=new(window.AudioContext||window.webkitAudioContext)();
@@ -1496,7 +1717,10 @@ function renderNotifs(items){
   items.forEach(n=>{
     const item=document.createElement('div');item.className=`notif-item${n.read?'':' unread'}`;
     item.innerHTML=`<div class="notif-ico">${n.icon||'🔔'}</div><div class="notif-txt">${esc(n.text||'')}<div class="notif-ts">${n.ts?fd(new Date(n.ts)):''}</div></div>`;
-    item.onclick=()=>markNotifRead(n.id);
+    item.onclick=()=>{
+      markNotifRead(n.id);
+      if(n.confId){document.getElementById('notif-panel')?.classList.remove('on');swP('confession');setTimeout(()=>openLetter(n.confId),150);}
+    };
     list.appendChild(item);
   });
 }
