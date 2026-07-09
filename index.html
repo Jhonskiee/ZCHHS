@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>ZCHHS — Chong Hua People Class Space</title>
+<meta name="description" content="A realtime class space for Chong Hua People — chat, My Day posts, confessions, notes, and profiles that let everyone see and connect with each other."/>
+<meta name="theme-color" content="#1e3a5f"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@700;800&family=Playfair+Display:ital,wght@0,600;1,600&family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+<!-- BG LAYERS -->
+<div id="bg0" class="bg-layer active"></div>
+<div id="bg1" class="bg-layer"></div>
+<div id="bg2" class="bg-layer"></div>
+<div id="bg3" class="bg-layer"></div>
+<div id="bg4" class="bg-layer"></div>
+<div id="bg5" class="bg-layer"></div>
+<div id="bg6" class="bg-layer"></div>
+<div id="bg7" class="bg-layer"></div>
+<div id="bg8" class="bg-layer"></div>
+<div id="bg9" class="bg-layer"></div>
+<div id="bg10" class="bg-layer"></div>
+<div id="bg11" class="bg-layer"></div>
+<div id="chat-overlay"></div>
+<!-- AUDIO -->
+<audio id="audio" preload="none"></audio>
+<div id="toast-wrap"></div>
+<!-- LIGHTBOX -->
+<div id="lightbox"><button id="lb-close" onclick="closeLb()">✕</button><img id="lb-img" src="" style="display:none"/><video id="lb-vid" src="" controls style="display:none"></video></div>
+<!-- LETTER OPEN MODAL -->
+<div id="letter-modal" onclick="if(event.target===this)closeLetter()">
+<div class="letter-envelope" id="letter-envelope"></div>
+</div>
+<!-- STORY VIEWER -->
+<div id="sv"><div class="sv-in"><img id="sv-img" class="sv-media" src="" style="display:none"/><video id="sv-vid" class="sv-media" src="" style="display:none" playsinline></video><div class="sv-ovr"></div><div class="sv-top"><div class="sv-bars" id="sv-bars"></div><div class="sv-av"><img id="sv-av-img" src=""/></div><span class="sv-nm" id="sv-nm"></span><button class="sv-close" onclick="closeStory()">✕</button></div><div class="sv-bot"><div class="sv-cap" id="sv-cap"></div></div><div class="sv-navs"><div class="sv-prev" onclick="svPrev()"></div><div class="sv-next" onclick="svNext()"></div></div></div></div>
+<!-- MODALS -->
+<div class="modal-bg" id="mod-find"><div class="modal"><button class="modal-close" onclick="closeModal('mod-find')">✕</button><h3>Find People</h3><input class="modal-input" id="find-q" placeholder="Search by nickname…" oninput="searchUsers(this.value)"/><div class="uresults" id="find-res"></div></div></div>
+<div class="modal-bg" id="mod-dm-new"><div class="modal"><button class="modal-close" onclick="closeModal('mod-dm-new')">✕</button><h3>New Message</h3><input class="modal-input" id="dm-q" placeholder="Search following…" oninput="filterDMSearch(this.value)"/><div class="uresults" id="dm-res"></div></div></div>
+<div class="modal-bg" id="mod-story"><div class="modal"><button class="modal-close" onclick="closeModal('mod-story')">✕</button><h3>🌅 Add to My Day</h3><textarea class="modal-input" id="story-cap" placeholder="Caption (optional)…" rows="3" style="resize:none;height:auto;min-height:60px"></textarea><label class="btn btn-ghost" style="cursor:pointer;margin-bottom:9px">📷 Choose Photo / Video<input type="file" id="story-file" accept="image/*,video/*" style="display:none" onchange="previewStory(this)"/></label><div id="story-preview"></div><button class="btn btn-primary" id="story-btn" onclick="submitStory()" style="margin-top:9px"><div class="bspin"></div><span class="blbl">Share to My Day 🌅</span></button></div></div>
+<!-- PROFILE VIEWER MODAL (NEW — "see others" everywhere) -->
+<div class="pv-bg" id="pv-bg">
+  <div class="pv-card">
+    <div class="pv-cover" id="pv-cover">
+      <button class="pv-close" type="button" onclick="closePv()">✕</button>
+    </div>
+    <div class="pv-body" id="pv-body"><div class="pv-loading">Loading profile…</div></div>
+  </div>
+</div>
+<!-- LOGIN -->
+<div class="page active" id="pg-login">
+<div class="card card-anim">
+<div class="brand"><div class="brand-ico">🎓</div><div class="brand-name">Chong Hua People</div><div class="brand-sub">Sign in to your class space</div></div>
+<div id="le" class="alrt ae"><span>⚠</span><span class="am"></span></div>
+<div id="ls" class="alrt as"><span>✓</span><span class="am"></span></div>
+<div class="field"><label class="flbl">Email</label><div class="iw"><span class="iico">✉</span><input type="email" id="lem" placeholder="you@example.com" autocomplete="email" inputmode="email"/></div></div>
+<div class="field"><label class="flbl">Password</label><div class="iw"><span class="iico">🔒</span><input type="password" id="lpw" placeholder="Your password" autocomplete="current-password"/><button class="itog" type="button" onclick="tpw('lpw',this)">👁</button></div></div>
+<div class="row2"><label class="chkl"><input type="checkbox" id="rem" checked/> Remember me</label><button class="lnk" type="button" onclick="go('pg-forgot')">Forgot password?</button></div>
+<button class="btn btn-primary" id="lb" type="button" onclick="doLogin()"><div class="bspin"></div><span class="blbl">Sign in</span></button>
+<div class="divdr">or</div>
+<div class="af">No account? <a onclick="go('pg-reg')">Create one</a></div>
+</div></div>
+<!-- REGISTER -->
+<div class="page" id="pg-reg">
+<div class="card card-anim">
+<div class="brand"><div class="brand-ico">🎓</div><div class="brand-name">Chong Hua People</div><div class="brand-sub">Join your class community</div></div>
+<div id="re" class="alrt ae"><span>⚠</span><span class="am"></span></div>
+<div id="rs" class="alrt as"><span>✓</span><span class="am"></span></div>
+<div class="field"><label class="flbl">Email</label><div class="iw"><span class="iico">✉</span><input type="email" id="rem2" placeholder="you@example.com" autocomplete="email" inputmode="email"/></div></div>
+<div class="field"><label class="flbl">Password</label><div class="iw"><span class="iico">🔒</span><input type="password" id="rpw" placeholder="At least 6 characters" autocomplete="new-password" oninput="pwStr(this.value)"/><button class="itog" type="button" onclick="tpw('rpw',this)">👁</button></div><div class="pwbar"><div class="pws" id="ps1"></div><div class="pws" id="ps2"></div><div class="pws" id="ps3"></div><div class="pws" id="ps4"></div></div><div class="pwlbl" id="pwlbl"></div></div>
+<div class="field"><label class="flbl">Confirm Password</label><div class="iw"><span class="iico">🔒</span><input type="password" id="rpw2" placeholder="Repeat password" autocomplete="new-password"/><button class="itog" type="button" onclick="tpw('rpw2',this)">👁</button></div></div>
+<button class="btn btn-primary" id="rb" type="button" onclick="doReg()" style="margin-top:5px"><div class="bspin"></div><span class="blbl">Create account</span></button>
+<div class="af" style="margin-top:13px">Have an account? <a onclick="go('pg-login')">Sign in</a></div>
+</div></div>
+<!-- FORGOT -->
+<div class="page" id="pg-forgot">
+<div class="card card-anim">
+<div class="brand"><div class="brand-ico">🔑</div><div class="brand-name">Reset Password</div><div class="brand-sub">We'll email you a reset link</div></div>
+<div id="fe" class="alrt ae"><span>⚠</span><span class="am"></span></div>
+<div id="fs" class="alrt as"><span>✓</span><span class="am"></span></div>
+<div class="alrt ai show"><span>ℹ</span><span>Check spam if it doesn't arrive.</span></div>
+<div class="field" style="margin-bottom:15px"><label class="flbl">Email</label><div class="iw"><span class="iico">✉</span><input type="email" id="fem" placeholder="you@example.com" autocomplete="email"/></div></div>
+<button class="btn btn-primary" id="fb" type="button" onclick="doForgot()"><div class="bspin"></div><span class="blbl">Send reset email</span></button>
+<div class="af" style="margin-top:13px"><a onclick="go('pg-login')">← Back to login</a></div>
+</div></div>
+<!-- NICK -->
+<div class="page" id="pg-nick" style="padding:16px">
+<div class="card card-anim" style="text-align:center;max-width:370px">
+<span class="nem">😄</span>
+<div class="nttl">Please Enter Your Name po</div>
+<div class="nsub">This is how your classmates will see you</div>
+<div id="ne" class="alrt ae"><span>⚠</span><span class="am"></span></div>
+<input type="text" id="nin" placeholder="Your nickname" maxlength="24" autocomplete="nickname" autocorrect="off" autocapitalize="words" spellcheck="false" oninput="document.getElementById('ncc').textContent=(24-this.value.length)+' left'"/>
+<div class="nchar" id="ncc">24 left</div>
+<button class="btn btn-pink" id="nb" type="button" onclick="doNick()" style="margin-top:12px"><div class="bspin"></div><span class="blbl">Let's go! 🎉</span></button>
+</div></div>
+<!-- APP -->
+<div class="page" id="pg-app">
+<div class="sb-ov" id="sb-ov" onclick="closeSb()"></div>
+<!-- TOPBAR -->
+<div class="topbar">
+<button class="tb-ham" type="button" onclick="openSb()">☰</button>
+<div class="tb-title" id="tb-title">💬 general</div>
+<div class="tb-sep"></div>
+<div class="tb-desc" id="tb-desc">General discussion</div>
+<span class="op-pill" id="tb-online">1 online</span>
+<div class="tb-acts">
+<button class="tb-btn notif-btn" type="button" onclick="toggleNotifPanel()" title="Notifications">🔔<span class="notif-bdg hide" id="notif-bdg">0</span></button>
+<button class="tb-btn" type="button" onclick="openModal('mod-find');searchUsers('')" title="Find people">👥</button>
+<button class="tb-btn" type="button" id="music-tog" onclick="toggleMusic()" title="Music">🎵</button>
+</div>
+</div>
+<div class="notif-panel" id="notif-panel">
+<div class="notif-hd"><h4>🔔 Notifications</h4><button type="button" onclick="markAllNotifsRead()">Mark all read</button></div>
+<div class="notif-list" id="notif-list"><div class="es" style="padding:20px 8px"><div class="es-ico">🔔</div><div class="es-ttl" style="font-size:12px">No notifications yet</div></div></div>
+</div>
+<div class="app-body">
+<!-- SIDEBAR -->
+<aside class="sb" id="sb">
+<div class="sb-hd">
+<div class="sb-logo"><div class="sb-lic">🎓</div><div><div class="sb-lt">Chong Hua People</div><div class="sb-ls">Class of 2026</div></div></div>
+<div class="sb-srch"><span class="sbsico">🔍</span><input type="search" id="srch" placeholder="Search…" oninput="doSearch(this.value)" autocomplete="off"/></div>
+</div>
+<div class="sb-sec">Menu</div>
+<div class="sb-items">
+<div class="sbi on" id="nav-chat"      onclick="swP('chat')">      <span class="sbi-ico">💬</span><span class="sbi-nm">Channels</span></div>
+<div class="sbi"    id="nav-myday"     onclick="swP('myday')">     <span class="sbi-ico">🌅</span><span class="sbi-nm">My Day</span></div>
+<div class="sbi"    id="nav-dm"        onclick="swP('dm')">        <span class="sbi-ico">✉️</span><span class="sbi-nm">Messages</span><span class="sbdg sbhide" id="dm-bdg">0</span></div>
+<div class="sbi"    id="nav-friends"   onclick="swP('friends')">   <span class="sbi-ico">👥</span><span class="sbi-nm">Following</span></div>
+<div class="sbi"    id="nav-confession"onclick="swP('confession')"><span class="sbi-ico">💌</span><span class="sbi-nm">Confessions</span></div>
+<div class="sbi"    id="nav-notes"     onclick="swP('notes')">     <span class="sbi-ico">📝</span><span class="sbi-nm">Notes</span></div>
+<div class="sbi"    id="nav-profile"   onclick="swP('profile')">   <span class="sbi-ico">👤</span><span class="sbi-nm">My Profile</span></div>
+</div>
+<div class="sb-sec" id="ch-sec">Channels</div>
+<div class="sb-items" id="ch-list">
+<div class="sbi on" id="sch-general"      onclick="swCh('general')">      <span style="color:rgba(255,255,255,.2);font-size:13px">#</span><span class="sbi-nm">general</span></div>
+<div class="sbi"    id="sch-random"        onclick="swCh('random')">        <span style="color:rgba(255,255,255,.2);font-size:13px">#</span><span class="sbi-nm">random</span></div>
+<div class="sbi"    id="sch-memories"      onclick="swCh('memories')">      <span style="color:rgba(255,255,255,.2);font-size:13px">#</span><span class="sbi-nm">memories</span></div>
+<div class="sbi"    id="sch-introductions" onclick="swCh('introductions')"> <span style="color:rgba(255,255,255,.2);font-size:13px">#</span><span class="sbi-nm">introductions</span></div>
+</div>
+<div class="sb-sec">Online</div>
+<div class="sb-online"><div class="olst" id="online-list"></div></div>
+<div class="sb-me">
+<div class="meav" id="me-av" onclick="swP('profile')"></div>
+<div class="me-info"><div class="me-nm" id="me-nm">…</div><div class="me-st">Online</div></div>
+<button class="sb-lo" type="button" onclick="doLogout()" title="Sign out">⏻</button>
+</div>
+</aside>
+<!-- MAIN -->
+<div class="main">
+<!-- CHAT PANEL -->
+<div class="panel on" id="panel-chat">
+<div class="sa" id="chat-wrap">
+<div class="cfeed" id="chat-feed">
+<div class="es" id="chat-empty"><div class="es-ico">💬</div><div class="es-ttl">No messages yet</div><div style="font-size:12px">Be the first to say something!</div></div>
+</div></div>
+<div id="tybar"></div>
+<div class="ia">
+<button id="sfab" type="button" onclick="scrollBot(true)">▼</button>
+<div id="epin"><div class="epg" id="epg"></div></div>
+<div class="ibox">
+<div class="in-tools">
+<button class="intl" type="button" onclick="togEp()" title="Emoji">😊</button>
+<label class="intl" title="Image/Video" style="cursor:pointer">📎<input type="file" id="chat-file" accept="image/*,video/*" style="display:none" onchange="sendFile(this,'chat')"/></label>
+</div>
+<textarea id="msgin" rows="1" placeholder="Message #general" maxlength="2000" oninput="onMI()" onkeydown="onMK(event)"></textarea>
+<button class="sndbtn" id="send-btn" type="button" onclick="sendMsg()" disabled>➤</button>
+</div>
+<div class="if2"><span>Enter to send · Shift+Enter new line</span><span id="char-c"></span></div>
+</div>
+</div>
+<!-- MY DAY PANEL -->
+<div class="panel" id="panel-myday">
+<div class="sa"><div class="day-wrap">
+<div><div class="sec-lbl">Stories (24h)</div><div class="srow" id="srow"></div></div>
+<div><div class="sec-lbl">Post something</div>
+<div class="compose-box">
+<div class="cmp-row"><div id="cmp-av" style="width:34px;height:34px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:#fff;overflow:hidden"></div><textarea class="cmp-ta" id="post-ta" placeholder="What's on your mind?"></textarea></div>
+<div class="cmp-tools"><label class="cptool" title="Add photo/video" style="cursor:pointer">📷<input type="file" id="post-file" accept="image/*,video/*" style="display:none" onchange="prevPost(this)"/></label><span id="post-file-lbl" style="font-size:11px;color:rgba(255,255,255,.36)"></span><button class="cp-submit" type="button" onclick="submitPost()">Post</button></div>
+</div></div>
+<div><div class="sec-lbl">Recent Posts</div><div class="posts-list" id="posts-list"><div class="es"><div class="es-ico">🌅</div><div class="es-ttl">No posts yet</div></div></div></div>
+</div></div>
+</div>
+<!-- DM PANEL -->
+<div class="panel" id="panel-dm">
+<div class="dm-layout">
+<div class="dm-sb"><div class="dm-sb-hd"><h3>Messages</h3><button class="dm-newbtn" type="button" onclick="openModal('mod-dm-new')" title="New">✏️</button></div><div class="dm-convs" id="dm-conv-list"></div></div>
+<div class="dm-main" id="dm-main"><div class="es"><div class="es-ico">💌</div><div class="es-ttl">Select a conversation</div></div></div>
+</div>
+</div>
+<!-- FOLLOWING PANEL -->
+<div class="panel" id="panel-friends">
+<div class="sa"><div class="friends-wrap">
+<div class="friends-hd"><h2>👥 Following</h2><button class="btn btn-primary btn-sm" type="button" onclick="openModal('mod-find');searchUsers('')">+ Follow Someone</button></div>
+<div id="friends-list"></div>
+</div></div>
+</div>
+<!-- CONFESSION PANEL -->
+<div class="panel" id="panel-confession">
+<div class="sa"><div class="conf-wrap">
+<div class="conf-stats">
+<div class="conf-stat"><b id="conf-stat-total">0</b><span>Letters Sent</span></div>
+<div class="conf-stat"><b id="conf-stat-mine">0</b><span>From You</span></div>
+<div class="conf-stat"><b id="conf-stat-hearts">0</b><span>Reactions For You</span></div>
+</div>
+<div class="conf-compose">
+<h3>💌 Write a Confession</h3>
+<div class="conf-field"><label>From (or "Anonymous")</label><input class="conf-input" id="conf-from" placeholder="Anonymous"/></div>
+<div class="conf-field tag-wrap"><label>Tag Someone 💕</label><input class="conf-input" id="conf-to" placeholder="Type a name to tag a classmate…" autocomplete="off" oninput="confTagSearch(this.value)" onfocus="confTagSearch(this.value)"/><div class="tag-suggest" id="conf-tag-suggest"></div><div id="conf-tag-chip"></div></div>
+<div class="conf-field"><label>Your Message</label><textarea class="conf-ta" id="conf-msg" placeholder="Tell them what's on your heart… It will be auto-formatted into a letter." rows="4" oninput="prevConf()"></textarea></div>
+<div class="conf-theme-row">
+<div class="conf-theme-grp"><label>Stationery</label><div class="theme-swatches" id="conf-theme-sw"></div></div>
+<div class="conf-theme-grp"><label>Wax Seal</label><div class="seal-swatches" id="conf-seal-sw"></div></div>
+</div>
+<div class="conf-preview" id="conf-preview"><div class="conf-letter" id="conf-letter"></div></div>
+<div class="conf-acts">
+<button class="btn btn-ghost btn-sm" type="button" onclick="prevConf()">Preview</button>
+<button class="btn btn-pink btn-sm" type="button" onclick="submitConf()"><div class="bspin"></div><span class="blbl">Send 💌</span></button>
+</div>
+</div>
+<div class="conf-toolbar">
+<div class="conf-tabs">
+<button class="conf-tab on" type="button" id="conf-tab-all" onclick="setConfTab('all')">All</button>
+<button class="conf-tab" type="button" id="conf-tab-sent" onclick="setConfTab('sent')">Sent by Me</button>
+<button class="conf-tab" type="button" id="conf-tab-recv" onclick="setConfTab('recv')">To Me</button>
+</div>
+<div class="conf-searchwrap"><span class="conf-searchico">🔎</span><input class="conf-search" id="conf-search" placeholder="Search by tagged name…" oninput="renderConfs()"/></div>
+<button class="conf-surprise" type="button" onclick="surpriseConf()">🎲 Surprise Me</button>
+</div>
+<div class="conf-list" id="conf-list"><div class="es"><div class="es-ico">💌</div><div class="es-ttl">No confessions yet</div></div></div>
+</div></div>
+</div>
+<!-- NOTES PANEL -->
+<div class="panel" id="panel-notes">
+<div class="sa"><div class="notes-wrap">
+<div class="notes-hd"><h2>📝 Notes</h2><button class="btn btn-primary btn-sm" type="button" onclick="togNoteC()">+ New Note</button></div>
+<div class="notes-tabs">
+<button class="notes-tab on" id="notes-tab-mine" type="button" onclick="setNotesTab('mine')">🔒 My Notes</button>
+<button class="notes-tab" id="notes-tab-community" type="button" onclick="setNotesTab('community')">🌍 Community Board <span id="notes-community-count" style="opacity:.6"></span></button>
+</div>
+<div class="note-compose" id="note-compose">
+<textarea class="note-ta" id="note-ta" placeholder="Write your note…" rows="4"></textarea>
+<div class="note-colors">
+<div class="nc nc0 on" data-c="0" onclick="selNC(0)"></div>
+<div class="nc nc1" data-c="1" onclick="selNC(1)"></div>
+<div class="nc nc2" data-c="2" onclick="selNC(2)"></div>
+<div class="nc nc3" data-c="3" onclick="selNC(3)"></div>
+<div class="nc nc4" data-c="4" onclick="selNC(4)"></div>
+<div class="nc nc5" data-c="5" onclick="selNC(5)"></div>
+</div>
+<div class="note-share-row" id="note-share-row" style="display:none">
+<input type="checkbox" id="note-share-chk" onchange="toggleNoteShare(this)"/>
+<label for="note-share-chk">Post this to the Community Board (everyone can see it live)</label>
+</div>
+<div style="display:flex;gap:7px">
+<button class="btn btn-primary btn-sm" type="button" onclick="saveNote()">Save Note</button>
+<button class="btn btn-ghost btn-sm" type="button" onclick="togNoteC()">Cancel</button>
+</div>
+</div>
+<div class="notes-grid" id="notes-grid"><div class="es" style="grid-column:1/-1"><div class="es-ico">📝</div><div class="es-ttl">No notes yet</div></div></div>
+<div class="notes-grid" id="notes-grid-community" style="display:none"><div class="es" style="grid-column:1/-1"><div class="es-ico">🌍</div><div class="es-ttl">No community notes yet</div></div></div>
+</div></div>
+</div>
+<!-- PROFILE PANEL -->
+<div class="panel" id="panel-profile">
+<div class="sa"><div>
+<div class="prof-cover" id="prof-cover" onclick="trigCV()">
+<img id="prof-cover-img" src="" style="display:none"/>
+<div class="prof-cover-h">📷 Change Cover</div>
+<input type="file" id="cv-in" accept="image/*" style="display:none" onchange="uploadCover(this)"/>
+<div class="prof-avwrap">
+<div class="prof-av" id="prof-av" onclick="event.stopPropagation();trigAV()">
+<div class="prof-av-h">📷</div>
+</div>
+<input type="file" id="av-in" accept="image/*" style="display:none" onchange="uploadAV(this)"/>
+</div>
+</div>
+<div class="prof-body">
+<div class="prof-name" id="prof-name">…</div>
+<div class="prof-email" id="prof-email">…</div>
+<button class="btn btn-ghost btn-sm prof-pic-btn" type="button" onclick="trigAV()">📷 Change Profile Picture</button>
+<div class="prof-stats">
+<div class="pstat"><div class="pstat-n" id="prof-posts">0</div><div class="pstat-l">Posts</div></div>
+<div class="pstat"><div class="pstat-n" id="prof-followers">0</div><div class="pstat-l">Followers</div></div>
+<div class="pstat"><div class="pstat-n" id="prof-following">0</div><div class="pstat-l">Following</div></div>
+</div>
+<div class="prof-bio-box">
+<label>Bio</label>
+<textarea class="prof-bio-ta" id="prof-bio" placeholder="Tell your classmates about yourself…" rows="3"></textarea>
+<button class="prof-save" type="button" onclick="saveBio()">Save Profile</button>
+</div>
+<div class="sec-lbl" style="margin-bottom:7px">My Posts</div>
+<div class="posts-grid" id="prof-grid"></div>
+</div>
+</div></div>
+</div>
+</div><!-- /main -->
+</div><!-- /app-body -->
+<!-- MUSIC BAR -->
+<div id="mbar" class="hide">
+<div class="mico">💗</div>
+<div class="minfo"><div class="mtitle" id="m-title">Study &amp; Love Mix</div><div class="martist" id="m-artist">Soft instrumentals for you two</div></div>
+<div class="mpwrap">
+<span class="mtime" id="m-curr">0:00</span>
+<div class="mprog" id="mprog" onclick="seekM(event)"><div class="mpfill" id="mpfill"></div></div>
+<span class="mtime" id="m-dur">0:00</span>
+</div>
+<div class="mctrl">
+<button class="mcbtn" type="button" onclick="prevTrack()" title="Previous song">⏮</button>
+<button class="mcbtn playbtn" id="play-btn" type="button" onclick="toggleMusic()">▶</button>
+<button class="mcbtn" type="button" onclick="nextTrack()" title="Next song">⏭</button>
+<div class="mvol" onclick="setVol(event)" title="Volume"><div class="mvfill" id="mvfill"></div></div>
+</div>
+</div>
+<!-- SUBSCRIPTION FOOTER -->
+<div class="sub-footer">🎓 <span>Chong Hua People 2026</span> — Made with ❤️ for our class memories</div>
+</div><!-- /pg-app -->
+
+<script type="module" src="js/main.js"></script>
+</body>
+</html>
